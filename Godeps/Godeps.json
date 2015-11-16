@@ -1,0 +1,56 @@
+{
+	"ImportPath": "github.com/kreuzwerker/envsec",
+	"GoVersion": "go1.5.1",
+	"Deps": [
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/aws",
+			"Comment": "v0.10.4-10-ga8e13a9",
+			"Rev": "a8e13a9010d17416ab32ad3154ea49c0960cc541"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/private/endpoints",
+			"Comment": "v0.10.4-10-ga8e13a9",
+			"Rev": "a8e13a9010d17416ab32ad3154ea49c0960cc541"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/private/protocol/json/jsonutil",
+			"Comment": "v0.10.4-10-ga8e13a9",
+			"Rev": "a8e13a9010d17416ab32ad3154ea49c0960cc541"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/private/protocol/jsonrpc",
+			"Comment": "v0.10.4-10-ga8e13a9",
+			"Rev": "a8e13a9010d17416ab32ad3154ea49c0960cc541"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/private/protocol/rest",
+			"Comment": "v0.10.4-10-ga8e13a9",
+			"Rev": "a8e13a9010d17416ab32ad3154ea49c0960cc541"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/private/signer/v4",
+			"Comment": "v0.10.4-10-ga8e13a9",
+			"Rev": "a8e13a9010d17416ab32ad3154ea49c0960cc541"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/service/kms",
+			"Comment": "v0.10.4-10-ga8e13a9",
+			"Rev": "a8e13a9010d17416ab32ad3154ea49c0960cc541"
+		},
+		{
+			"ImportPath": "github.com/go-ini/ini",
+			"Comment": "v0-48-g060d7da",
+			"Rev": "060d7da055ba6ec5ea7a31f116332fe5efa04ce0"
+		},
+		{
+			"ImportPath": "github.com/jmespath/go-jmespath",
+			"Comment": "0.2.1",
+			"Rev": "53d419364047eb08a64c29471db23c60ea585b85"
+		},
+		{
+			"ImportPath": "github.com/stretchr/testify/assert",
+			"Comment": "v1.0-21-gf552045",
+			"Rev": "f5520455607c0233cb6d7b056f71b22c1d265ef1"
+		}
+	]
+}
