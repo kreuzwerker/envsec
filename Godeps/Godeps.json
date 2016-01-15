@@ -4,38 +4,53 @@
 	"Deps": [
 		{
 			"ImportPath": "github.com/aws/aws-sdk-go/aws",
-			"Comment": "v0.10.4-10-ga8e13a9",
-			"Rev": "a8e13a9010d17416ab32ad3154ea49c0960cc541"
+			"Comment": "v1.0.9",
+			"Rev": "c4c1a1a2a076858fe18b2be674d833c796c45b09"
 		},
 		{
 			"ImportPath": "github.com/aws/aws-sdk-go/private/endpoints",
-			"Comment": "v0.10.4-10-ga8e13a9",
-			"Rev": "a8e13a9010d17416ab32ad3154ea49c0960cc541"
+			"Comment": "v1.0.9",
+			"Rev": "c4c1a1a2a076858fe18b2be674d833c796c45b09"
 		},
 		{
 			"ImportPath": "github.com/aws/aws-sdk-go/private/protocol/json/jsonutil",
-			"Comment": "v0.10.4-10-ga8e13a9",
-			"Rev": "a8e13a9010d17416ab32ad3154ea49c0960cc541"
+			"Comment": "v1.0.9",
+			"Rev": "c4c1a1a2a076858fe18b2be674d833c796c45b09"
 		},
 		{
 			"ImportPath": "github.com/aws/aws-sdk-go/private/protocol/jsonrpc",
-			"Comment": "v0.10.4-10-ga8e13a9",
-			"Rev": "a8e13a9010d17416ab32ad3154ea49c0960cc541"
+			"Comment": "v1.0.9",
+			"Rev": "c4c1a1a2a076858fe18b2be674d833c796c45b09"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/private/protocol/query",
+			"Comment": "v1.0.9",
+			"Rev": "c4c1a1a2a076858fe18b2be674d833c796c45b09"
 		},
 		{
 			"ImportPath": "github.com/aws/aws-sdk-go/private/protocol/rest",
-			"Comment": "v0.10.4-10-ga8e13a9",
-			"Rev": "a8e13a9010d17416ab32ad3154ea49c0960cc541"
+			"Comment": "v1.0.9",
+			"Rev": "c4c1a1a2a076858fe18b2be674d833c796c45b09"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/private/protocol/xml/xmlutil",
+			"Comment": "v1.0.9",
+			"Rev": "c4c1a1a2a076858fe18b2be674d833c796c45b09"
 		},
 		{
 			"ImportPath": "github.com/aws/aws-sdk-go/private/signer/v4",
-			"Comment": "v0.10.4-10-ga8e13a9",
-			"Rev": "a8e13a9010d17416ab32ad3154ea49c0960cc541"
+			"Comment": "v1.0.9",
+			"Rev": "c4c1a1a2a076858fe18b2be674d833c796c45b09"
 		},
 		{
 			"ImportPath": "github.com/aws/aws-sdk-go/service/kms",
-			"Comment": "v0.10.4-10-ga8e13a9",
-			"Rev": "a8e13a9010d17416ab32ad3154ea49c0960cc541"
+			"Comment": "v1.0.9",
+			"Rev": "c4c1a1a2a076858fe18b2be674d833c796c45b09"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/service/sts",
+			"Comment": "v1.0.9",
+			"Rev": "c4c1a1a2a076858fe18b2be674d833c796c45b09"
 		},
 		{
 			"ImportPath": "github.com/go-ini/ini",
@@ -48,9 +63,18 @@
 			"Rev": "53d419364047eb08a64c29471db23c60ea585b85"
 		},
 		{
+			"ImportPath": "github.com/joho/godotenv",
+			"Comment": "v1-10-g4ed1339",
+			"Rev": "4ed13390c0acd2ff4e371e64d8b97c8954138243"
+		},
+		{
 			"ImportPath": "github.com/stretchr/testify/assert",
 			"Comment": "v1.0-21-gf552045",
 			"Rev": "f5520455607c0233cb6d7b056f71b22c1d265ef1"
+		},
+		{
+			"ImportPath": "github.com/yawn/envmap",
+			"Rev": "45241142781edb43b57fefaf356a7526435ff719"
 		}
 	]
 }

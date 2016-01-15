@@ -9,25 +9,23 @@ import (
 
 	"github.com/kreuzwerker/envsec"
 	"github.com/spf13/cobra"
+	"github.com/yawn/doubledash"
+	"github.com/yawn/envmap"
 )
 
-const DEFAULT_PREFIX = "ENVSEC_"
-
-var (
-	build   string
-	version string
+const (
+	defaultPrefix = "ENVSEC_"
+	version       = "1.0.0"
 )
+
+var build string
 
 func main() {
 
 	// global state
-	var (
-		flagArgs, execArgs []string
-		h                  envsec.Handler
-	)
+	var h envsec.Handler
 
-	flagArgs, execArgs = envsec.SplitArgs()
-	os.Args = flagArgs
+	os.Args = doubledash.Args
 
 	// flags
 	var (
@@ -70,18 +68,18 @@ func main() {
 		},
 		Run: func(cmd *cobra.Command, args []string) {
 
-			if len(execArgs) < 1 {
+			if len(doubledash.Xtra) < 1 {
 				log.Fatal("No command found to execute")
 			}
 
 			var (
-				env  = h.Decrypt(os.Environ())
-				arg0 = execArgs[0]
+				env  = h.Decrypt(envmap.Import())
+				arg0 = doubledash.Xtra[0]
 				argv []string
 			)
 
-			if len(execArgs) > 1 {
-				argv = execArgs[1:]
+			if len(doubledash.Xtra) > 1 {
+				argv = doubledash.Xtra[1:]
 			}
 
 			if err := syscall.Exec(arg0, argv, env); err != nil {
@@ -116,7 +114,7 @@ func main() {
 
 		}, Run: func(cmd *cobra.Command, args []string) {
 
-			for _, e := range h.Encrypt(args) {
+			for _, e := range h.Encrypt(envmap.ToMap(args)) {
 				fmt.Println(e)
 			}
 
@@ -138,7 +136,7 @@ func main() {
 	// flag parsing
 
 	arn = encrypt.Flags().StringP("arn", "a", "", "ARN of the the AWS KMS key")
-	prefix = root.PersistentFlags().StringP("prefix", "p", DEFAULT_PREFIX, "Prefix distinguishing secure variables")
+	prefix = root.PersistentFlags().StringP("prefix", "p", defaultPrefix, "Prefix distinguishing secure variables")
 	region = decrypt.Flags().StringP("region", "r", "eu-west-1", "Default region")
 	verbose = root.PersistentFlags().BoolP("verbose", "v", false, "Verbose logging")
 

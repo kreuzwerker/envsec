@@ -13,6 +13,17 @@ type KMSMethod struct {
 	keyId  string
 }
 
+func NewKMSMethod(region, keyId string) (*KMSMethod, error) {
+
+	method := &KMSMethod{
+		client: kms.New(session.New(), &aws.Config{Region: aws.String(region)}),
+		keyId:  keyId,
+	}
+
+	return method, nil
+
+}
+
 func (c *KMSMethod) Decrypt(ciphertext string) (string, error) {
 
 	decoded, err := base64.StdEncoding.DecodeString(ciphertext)
@@ -47,16 +58,5 @@ func (c *KMSMethod) Encrypt(plaintext string) (string, error) {
 	encoded := base64.StdEncoding.EncodeToString(resp.CiphertextBlob)
 
 	return encoded, nil
-
-}
-
-func NewKMSMethod(region, keyId string) (*KMSMethod, error) {
-
-	method := &KMSMethod{
-		client: kms.New(session.New(), &aws.Config{Region: aws.String(region)}),
-		keyId:  keyId,
-	}
-
-	return method, nil
 
 }
