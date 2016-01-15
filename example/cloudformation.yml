@@ -1,0 +1,109 @@
+#! /usr/bin/env tacks run -e test
+name: envsec-travis
+
+environments:
+  test:
+    delete_on_failure: true
+    mode: upsert
+    region: eu-west-1
+    timeout: 60
+    tags:
+      Owner: JB
+
+stack:
+  {
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "envsec test",
+    "Outputs": {
+      "decrypt": {
+        "Value": { "Fn::GetAtt": [ "decrypt", "Arn" ] }
+      },
+      "encrypt": {
+        "Value": { "Fn::GetAtt": [ "encrypt", "Arn" ] }
+      },
+      "key": {
+        "Value": { "Ref": "key" }
+      },
+      "public": {
+        "Value": { "Ref": "credentials" }
+      },
+      "secret": {
+        "Value": { "Fn::GetAtt": [ "credentials", "SecretAccessKey" ] }
+      }
+    },
+    "Resources": {
+      "credentials": {
+        "Type": "AWS::IAM::AccessKey",
+        "Properties": {
+          "Status": "Active",
+          "UserName": { "Ref": "user" }
+        }
+      },
+      "decrypt": {
+        "Type": "AWS::IAM::Role",
+        "Properties": {
+          "AssumeRolePolicyDocument": {
+            "Statement": [
+              {
+                "Action": "sts:AssumeRole",
+                "Effect": "Allow",
+                "Principal": { "AWS": { "Fn::GetAtt": [ "user", "Arn" ] } }
+              }
+            ]
+          },
+          "Path": "/"
+        }
+      },
+      "encrypt": {
+        "Type": "AWS::IAM::Role",
+        "Properties": {
+          "AssumeRolePolicyDocument": {
+            "Statement": [
+              {
+                "Action": "sts:AssumeRole",
+                "Effect": "Allow",
+                "Principal": { "AWS": { "Fn::GetAtt": [ "user", "Arn" ] } }
+              }
+            ]
+          },
+          "Path": "/"
+        }
+      },
+      "key": {
+        "Type": "AWS::KMS::Key",
+        "Properties": {
+          "Description": "Testkey for envsec",
+          "Enabled": true,
+          "EnableKeyRotation": false,
+          "KeyPolicy": {
+            "Version": "2012-10-17",
+            "Statement": [
+              {
+                "Action": "kms:*",
+                "Effect": "Allow",
+                "Principal": { "AWS": { "Fn::Join": [ "", [ "arn:aws:iam::", { "Ref": "AWS::AccountId" }, ":root" ] ] } },
+                "Resource": "*"
+              },
+              {
+                "Action": "kms:Decrypt",
+                "Effect": "Allow",
+                "Principal": { "AWS": { "Fn::GetAtt": [ "decrypt", "Arn" ] } },
+                "Resource": "*"
+              },
+              {
+                "Action": "kms:Encrypt",
+                "Effect": "Allow",
+                "Principal": { "AWS": { "Fn::GetAtt": [ "encrypt", "Arn" ] } },
+                "Resource": "*"
+              }
+            ]
+          }
+        }
+      },
+      "user": {
+        "Type": "AWS::IAM::User",
+        "Properties": {
+        }
+      },
+    }
+  }
