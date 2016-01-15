@@ -1,11 +1,14 @@
-VERSION := 0.1.0
+VERSION := 1.0.0
 FLAGS := "-X main.build `git rev-parse --short HEAD` -X main.version $(VERSION)"
 
-export GO15VENDOREXPERIMENT=1
+#export GO15VENDOREXPERIMENT=1
+export GITHUB_REPO := envsec
+export GITHUB_USER := kreuzwerker
+export TOKEN = `cat .token`
 
 build:
 	pushd bin && \
-		gox -os="linux darwin windows freebsd" -arch="amd64" -ldflags $(FLAGS) -output "../build/{{.OS}}_{{.Arch}}/es-{{.Dir}}"; \
+		gox -os="linux darwin freebsd" -arch="amd64" -ldflags $(FLAGS) -output "../build/{{.OS}}_{{.Arch}}/es"; \
 		popd
 
 clean:
@@ -28,3 +31,14 @@ verify:
 	signify -Veq -p keys/public -x manifest -m - | shasum -ba 256 -c
 
 .PHONY: install verify
+
+release: clean build manifest
+	git tag $(VERSION) -f && git push --tags -f
+	github-release release --tag $(VERSION) -s $(TOKEN)
+	github-release upload --tag $(VERSION) -s $(TOKEN) --name es-osx --file build/darwin_amd64/es
+	github-release upload --tag $(VERSION) -s $(TOKEN) --name es-freebsd --file build/freebsd_amd64/es
+	github-release upload --tag $(VERSION) -s $(TOKEN) --name es-linux --file build/build/linux_amd64/es
+	github-release upload --tag $(VERSION) -s $(TOKEN) --name manifest --file manifest
+
+retract:
+	github-release delete --tag $(VERSION) -s $(TOKEN)
