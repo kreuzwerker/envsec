@@ -1,4 +1,6 @@
 .env
+.token
 build/
 example/test.envs
 keys/secret
+manifest
