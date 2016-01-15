@@ -13,12 +13,12 @@ import (
 	"github.com/yawn/envmap"
 )
 
-const (
-	defaultPrefix = "ENVSEC_"
-	version       = "1.0.0"
-)
+const defaultPrefix = "ENVSEC_"
 
-var build string
+var (
+	build   string
+	version string
+)
 
 func main() {
 
