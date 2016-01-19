@@ -43,3 +43,14 @@ The result is the following config file:
 secret1 = "opensesame"
 secret2 = "foreyesonly"
 ```
+
+### Integration test and CloudFormation template
+
+The integration tests in `kms_test.go` utilize a test environment described using a [tacks](https://github.com/kreuzwerker/tacks) template. At it's core (starting at line 14) the file `example/cloudformation.yml` contains:
+
+1. two roles (`encrypt` and `decrypt`)
+* a user that can assume those roles
+* a keypair for that user
+* a KMS key with a key policy that ties encryption and decryption rights to the two roles; in order to be able to delete the key together with the stack, full access is given to the account the key was created in
+
+In a production setup the roles (or rather the underlying policies) would be tied to an instance profile of an EC2 instance (for decrypting) and potentially to the group of developers / operators relevant to this project (for encrypting).
