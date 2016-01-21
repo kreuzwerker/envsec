@@ -1,5 +1,7 @@
 # Envsec
 
+[![Build Status](https://travis-ci.org/kreuzwerker/envsec.svg?branch=master)](https://travis-ci.org/kreuzwerker/envsec)
+
 Envsec (`es`) encrypts and decrypts environment variables using [AWS KMS](https://aws.amazon.com/kms/). When encrypting it passes the variable values to KMS, let's the service encrypt them and prefixes the variables with a configurable prefix (default: `ENVSEC_`). When decrypting, it `exec`utes a given process and passes the decrypted environment variables (without the prefix) to the new process.
 
 The usage of KMS allows authorized operators to encrypt configuration secrets and submit them to version control, [ECS task definitions](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_defintions.html) and other sources of configuration truths while the decryption operation can be bound to different principals, e.g. the role of an EC2 instance's instance profile.
