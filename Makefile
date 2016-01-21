@@ -6,16 +6,17 @@ export GITHUB_REPO := envsec
 export GITHUB_USER := kreuzwerker
 export TOKEN = `cat .token`
 
+.PHONY: build
+
 build:
-	pushd bin && \
-		gox -os="linux darwin freebsd" -arch="amd64" -ldflags $(FLAGS) -output "../build/{{.OS}}_{{.Arch}}/es"; \
-		popd
+	cd bin && \
+		gox -os="linux darwin freebsd" -arch="amd64" -ldflags $(FLAGS) -output "../build/{{.OS}}_{{.Arch}}/es";
 
 clean:
 	rm -rf build manifest
 
 install:
-	go get -u github.com/mitchellh/gox
+	go get -v ./...
 
 # generate keypair for signing
 keys/secret:
