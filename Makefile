@@ -8,6 +8,9 @@ export TOKEN = `cat .token`
 
 .PHONY: build
 
+test:
+	go test
+
 build:
 	cd bin && \
 		gox -os="linux darwin freebsd" -arch="amd64" -ldflags $(FLAGS) -output "../build/{{.OS}}_{{.Arch}}/es";
