@@ -114,7 +114,28 @@ func main() {
 
 		}, Run: func(cmd *cobra.Command, args []string) {
 
-			for _, e := range h.Encrypt(envmap.ToMap(args)) {
+			var env = envmap.Import()
+
+			for k, _ := range env {
+
+				found := false
+
+				for _, e := range args {
+
+					if k == e {
+						found = true
+						break
+					}
+
+				}
+
+				if !found {
+					delete(env, k)
+				}
+
+			}
+
+			for _, e := range h.Encrypt(env) {
 				fmt.Println(e)
 			}
 

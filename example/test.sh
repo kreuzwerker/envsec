@@ -1,4 +1,4 @@
-BINARY=../build/darwin_amd64/es-bin
+BINARY=../build/darwin-amd64/es
 
 export SECRET1=opensesame
 export SECRET2=foreyesonly
@@ -10,4 +10,4 @@ unset SECRET2
 
 eval $(cat test.envs)
 
-$BINARY dec -- /usr/local/bin/ep -v test.config -- /bin/cat test.config
+$BINARY dec -- /usr/local/bin/ep -v -d test.config -- /bin/cat test.config
