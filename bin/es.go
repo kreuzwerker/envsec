@@ -23,13 +23,17 @@ var (
 func main() {
 
 	// global state
-	var h envsec.Handler
+	var (
+		f envsec.Formatter
+		h envsec.Handler
+	)
 
 	os.Args = doubledash.Args
 
 	// flags
 	var (
 		arn     *string
+		format  *string
 		prefix  *string
 		region  *string
 		verbose *bool
@@ -112,11 +116,19 @@ func main() {
 				log.Fatalf("Invalid ARN format %q", *arn)
 			}
 
+			formatter, ok := envsec.Formats[*format]
+
+			if !ok {
+				log.Fatalf("Invalid formatter %q", *format)
+			}
+
+			f = formatter
+
 		}, Run: func(cmd *cobra.Command, args []string) {
 
 			var env = envmap.Import()
 
-			for k, _ := range env {
+			for k := range env {
 
 				found := false
 
@@ -135,9 +147,7 @@ func main() {
 
 			}
 
-			for _, e := range h.Encrypt(env) {
-				fmt.Println(e)
-			}
+			f(h.Encrypt(env))
 
 		},
 	}
@@ -157,6 +167,7 @@ func main() {
 	// flag parsing
 
 	arn = encrypt.Flags().StringP("arn", "a", "", "ARN of the the AWS KMS key")
+	format = encrypt.Flags().StringP("format", "f", "shell", `Format of the decryption output (one of "shell", "cloudformation" or "terraform")`)
 	prefix = root.PersistentFlags().StringP("prefix", "p", defaultPrefix, "Prefix distinguishing secure variables")
 	region = decrypt.Flags().StringP("region", "r", "eu-west-1", "Default region")
 	verbose = root.PersistentFlags().BoolP("verbose", "v", false, "Verbose logging")
