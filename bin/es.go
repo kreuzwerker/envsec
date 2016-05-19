@@ -167,7 +167,7 @@ func main() {
 	// flag parsing
 
 	arn = encrypt.Flags().StringP("arn", "a", "", "ARN of the the AWS KMS key")
-	format = encrypt.Flags().StringP("format", "f", "shell", `Format of the decryption output (one of "shell", "cloudformation" or "terraform")`)
+	format = encrypt.Flags().StringP("format", "f", "shell", `Format of the encryption output (one of "shell", "cloudformation" or "terraform")`)
 	prefix = root.PersistentFlags().StringP("prefix", "p", defaultPrefix, "Prefix distinguishing secure variables")
 	region = decrypt.Flags().StringP("region", "r", "eu-west-1", "Default region")
 	verbose = root.PersistentFlags().BoolP("verbose", "v", false, "Verbose logging")
