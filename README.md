@@ -6,6 +6,47 @@ Envsec (`es`) encrypts and decrypts environment variables using [AWS KMS](https:
 
 The usage of KMS allows authorized operators to encrypt configuration secrets and submit them to version control, [ECS task definitions](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_defintions.html) and other sources of configuration truths while the decryption operation can be bound to different principals, e.g. the role of an EC2 instance's instance profile.
 
+## Formats
+
+`es` can output several formats when encrypting environment variables.
+
+### CloudFormation
+
+Triggered with `-f cloudformation`, this exports variables in a form suitable for AWS [CloudFormation](https://aws.amazon.com/cloudformation/) stacks.
+
+Example:
+
+```
+"foo": {
+  "Default": "bar",
+  "Type": "String"
+}
+```
+
+### Terraform
+
+Triggered with `-f terraform`, this exports variables in a form suitable for Hashicorp's [Terraform](https://www.terraform.io/).
+
+Example:
+
+```
+variable "foo" {
+  type    = "string"
+  default = "bar"
+}
+
+```
+
+### Shell
+
+Triggered with `-f shell` (the default), this exports variables in a form suitable for shell exports.
+
+Example:
+
+```
+foo=bar
+```
+
 ## Example
 
 This example uses `es` in combination with [envplate](https://github.com/kreuzwerker/envplate) to replace confidential variable references in the following config file:

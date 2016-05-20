@@ -2,20 +2,24 @@ package envsec
 
 import (
 	"fmt"
+	"io"
 	"strings"
 
 	"github.com/yawn/envmap"
 )
 
+// Formats exposes the Formatters known to envsec
 var Formats = map[string]Formatter{
 	"cloudformation": cloudformation,
 	"shell":          shell,
 	"terraform":      terraform,
 }
 
-type Formatter func(result []string)
+// Formatter defines the output function for a given slice of environment key/value tuples
+type Formatter func(w io.Writer, result []string)
 
-func cloudformation(result []string) {
+// cloudformation emits a formatting suitable for AWS CloudFormation stacks
+func cloudformation(w io.Writer, result []string) {
 
 	var list []string
 
@@ -28,23 +32,25 @@ func cloudformation(result []string) {
 
 	}
 
-	fmt.Println(strings.Join(list, ",\n"))
+	fmt.Fprintln(w, strings.Join(list, ",\n"))
 
 }
 
-func shell(result []string) {
+// shell emits a formatting suitable for shell exports
+func shell(w io.Writer, result []string) {
 
 	for _, e := range result {
-		fmt.Println(e)
+		fmt.Fprintln(w, e)
 	}
 
 }
 
-func terraform(result []string) {
+// terraform emits a formatting suitable for Terraform
+func terraform(w io.Writer, result []string) {
 
 	for k, v := range envmap.ToMap(result) {
 
-		fmt.Printf(`variable "%s" {
+		fmt.Fprintf(w, `variable "%s" {
   type    = "string"
   default = "%s"
 }

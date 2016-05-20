@@ -147,7 +147,7 @@ func main() {
 
 			}
 
-			f(h.Encrypt(env))
+			f(os.Stdout, h.Encrypt(env))
 
 		},
 	}
