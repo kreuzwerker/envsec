@@ -99,7 +99,7 @@ func main() {
 		Short: "encrypt environment variables",
 		PreRun: func(cmd *cobra.Command, args []string) {
 
-			matcher := regexp.MustCompile(`arn\:aws\:kms\:([a-z0-9-]+):\d+\:key\/([a-f0-9\-]+)`)
+			matcher := regexp.MustCompile(`arn\:aws\:kms\:([a-z0-9-]+):\d+\:(key\/[a-f0-9\-]+|alias\/[a-zA-Z0-9:\/_-]+$)`)
 			matches := matcher.FindAllStringSubmatch(*arn, -1)
 
 			if len(matches) > 0 {
