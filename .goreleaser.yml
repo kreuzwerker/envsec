@@ -36,4 +36,4 @@ brews:
       name: homebrew-taps
       token: "{{ .Env.GORELEASER_TOKEN }}"
     homepage: "https://github.com/kreuzwerker/envsec"
-    description: "git@github.com:kreuzwerker/envsec.git."
+    description: "Encrypted environment variables via AWS KMS."
