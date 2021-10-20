@@ -78,6 +78,7 @@ func kmsMethod() Method {
 }
 
 func TestKMSEncryptAndDecrypt(t *testing.T) {
+	t.Skip("TODO mavogel: setup aws acc")
 
 	assert := assert.New(t)
 
