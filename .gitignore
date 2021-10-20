@@ -4,3 +4,5 @@ build/
 example/test.envs
 keys/secret
 manifest
+.vscode
+dist
